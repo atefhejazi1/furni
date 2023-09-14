@@ -18,21 +18,23 @@
             </div>
         @endif
 
-        <form action="{{ url('categories') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ url('categories', $category->id) }}" method="post" enctype="multipart/form-data">
             @csrf
-
+            @method('PATCH')
+            <input type="hidden" name="id" value="{{ $category->id }}">
             <div class="mb-3">
                 <label for="" class="form-label">Name</label>
-                <input type="text" name="name" id="" class="form-control" placeholder=""
-                    aria-describedby="helpId">
+                <input value="{{ $category->name }}" type="text" name="name" id="" class="form-control"
+                    placeholder="" aria-describedby="helpId">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Description</label>
-                <input type="text" name="description" id="" class="form-control" placeholder=""
-                    aria-describedby="helpId">
+                <input value="{{ $category->description }}" type="text" name="description" id=""
+                    class="form-control" placeholder="" aria-describedby="helpId">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Photo</label>
+                <img width="200px" src="{{ asset('uploads/' . $category->photo) }}" alt="">
                 <input type="file" name="photo" id="" class="form-control" placeholder=""
                     aria-describedby="helpId">
             </div>

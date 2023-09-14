@@ -22,8 +22,15 @@
                             <td>{{ $cat->name }}</td>
                             <td>{{ $cat->description }}</td>
                             <td><img width="150px" src="{{ asset('uploads/' . $cat->photo) }}" alt=""></td>
-                            <td><a href="#" class="btn btn-primary">Update</a></td>
-                            <td><a href="#" class="btn btn-danger">Delete</a></td>
+                            <td><a href="{{ url('categories/' . $cat->id . '/edit') }}" class="btn btn-primary">Update</a>
+                            </td>
+                            <td>
+                                <form action="{{ url('categories', $cat->id) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
 

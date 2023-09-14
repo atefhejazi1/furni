@@ -29,6 +29,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validated = $request->validate([
+            'name' => 'required|unique:categories|max:100',
+            'description' => 'required',
+            'photo' => 'required|image',
+        ]);
+
+
         $category = new category();
         $category->name = $request->name;
         $category->description = $request->description;
@@ -59,15 +67,37 @@ class CategoryController extends Controller
      */
     public function edit(category $category)
     {
-        //
+        return  view('category.updateCat', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, category $category)
+    public function update(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'name' => 'required|unique:categories|max:100',
+            'description' => 'required',
+            'photo' => 'required|image',
+        ]);
+
+        $cat = category::find($request->id);
+
+        $cat->name = $request->name;
+        $cat->description = $request->description;
+
+
+        $image = $request->file('photo');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+        $image->move(public_path('uploads'), $imageName);
+
+        $cat->photo = $imageName;
+
+        $cat->save();
+
+        return redirect('categories');
     }
 
     /**
@@ -75,6 +105,9 @@ class CategoryController extends Controller
      */
     public function destroy(category $category)
     {
-        //
+        $category->delete();
+
+
+        return redirect('categories');
     }
 }
