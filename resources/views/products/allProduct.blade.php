@@ -25,13 +25,13 @@
                             <td>{{ $product->details }}</td>
                             <td>{{ $product->price }}</td>
                             <td><img width="150px" src="{{ asset('uploads/' . $product->photo) }}" alt=""></td>
-                            <td>{{ $product->category_id }}</td>
+                            <td>{{ $product->category->name }}</td>
 
-                            <td><a href="{{ url('productegories/' . $product->id . '/edit') }}"
-                                    class="btn btn-primary">Update</a>
+                            <td>
+                                <a href="{{ url('products/' . $product->id . '/edit') }}" class="btn btn-primary">Update</a>
                             </td>
                             <td>
-                                <form action="{{ url('productegories', $product->id) }}" method="post">
+                                <form action="{{ url('products', $product->id) }}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger">Delete</button>

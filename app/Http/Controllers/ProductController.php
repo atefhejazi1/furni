@@ -73,15 +73,39 @@ class ProductController extends Controller
      */
     public function edit(product $product)
     {
-        //
+        $categories =  category::all();
+        return  view('products.updateProduct', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, product $product)
+    public function update(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|unique:products|max:100',
+            'details' => 'required',
+            'photo' => 'required|image',
+        ]);
+
+        $cat = product::find($request->id);
+
+        $cat->name = $request->name;
+        $cat->details = $request->details;
+
+
+        $image = $request->file('photo');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+        $image->move(public_path('uploads'), $imageName);
+
+        $cat->photo = $imageName;
+        $cat->price = $request->price;
+        $cat->category_id = $request->category_id;
+
+        $cat->save();
+
+        return redirect('products');
     }
 
     /**
@@ -89,6 +113,9 @@ class ProductController extends Controller
      */
     public function destroy(product $product)
     {
-        //
+        $product->delete();
+
+
+        return redirect('products');
     }
 }
