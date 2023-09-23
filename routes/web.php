@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestimonialsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,3 +37,6 @@ require __DIR__ . '/auth.php';
 Route::resource('categories', CategoryController::class);
 
 Route::resource('products', ProductController::class);
+
+
+Route::resource('testimonials', TestimonialsController::class);
