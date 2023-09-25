@@ -67,17 +67,37 @@ class TestimonialsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(testimonials $testimonials)
+    public function edit($id)
     {
-        //
+        $test = testimonials::find($id);
+        return  view('testimonials.updateTestimonials', compact('test'));
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, testimonials $testimonials)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|unique:testimonials|max:100',
+            'job_title' => 'required',
+            'photo' => 'required|image',
+            'feedback' => 'required',
+        ]);
+
+        $test = testimonials::find($id);
+        $test->name = $request->name;
+        $test->job_title = $request->job_title;
+        $test->feedback = $request->feedback;
+
+        $image = $request->file('photo');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+        $image->move(public_path('uploads'), $imageName);
+
+        $test->photo = $imageName;
+
+        $test->save();
+        return redirect('testimonials');
     }
 
     /**

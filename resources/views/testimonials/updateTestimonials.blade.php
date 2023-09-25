@@ -18,43 +18,33 @@
             </div>
         @endif
 
-        <form action="{{ url('products', $product->id) }}" method="post" enctype="multipart/form-data">
-            @csrf
+        <form action="{{ url('testimonials', $test->id) }}" method="post" enctype="multipart/form-data">
             @method('PATCH')
-            <input type="hidden" name="id" value="{{ $product->id }}">
+            @csrf
+
             <div class="mb-3">
                 <label for="" class="form-label">Name</label>
-                <input value="{{ $product->name }}" type="text" name="name" id="" class="form-control"
+                <input name="name" value="{{ $test->name }}" type="text" id="" class="form-control"
                     placeholder="" aria-describedby="helpId">
             </div>
+
             <div class="mb-3">
-                <label for="" class="form-label">Details</label>
-                <input value="{{ $product->details }}" type="text" name="details" id=""
-                    class="form-control" placeholder="" aria-describedby="helpId">
+                <label for="" class="form-label">Job Title</label>
+                <input value="{{ $test->job_title }}" type="text" name="job_title" id="" class="form-control"
+                    placeholder="" aria-describedby="helpId">
             </div>
+
             <div class="mb-3">
+                <img src="{{ asset('uploads/' . $test->photo) }}" width="200px" height="150px" alt="">
                 <label for="" class="form-label">Photo</label>
-                <img width="200px" src="{{ asset('uploads/' . $product->photo) }}" alt="">
                 <input type="file" name="photo" id="" class="form-control" placeholder=""
                     aria-describedby="helpId">
             </div>
 
             <div class="mb-3">
-                <label for="" class="form-label">Price</label>
-                <input type="number" name="price" id="" class="form-control" placeholder=""
-                    aria-describedby="helpId">
+                <label for="" class="form-label">Feedback</label>
+                <textarea name="feedback" rows="10" class="form-control">{{ $test->feedback }} </textarea>
             </div>
-
-            <div class="mb-3">
-                <label for="" class="form-label">Category</label>
-
-                <select name="category_id" class="form-control">
-                    @foreach ($categories as $cat)
-                        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
 
             <button type="submit" class="btn btn-primary">Button</button>
         </form>

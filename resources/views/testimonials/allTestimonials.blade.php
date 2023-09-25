@@ -26,7 +26,7 @@
                             <td>{{ $test->feedback }}</td>
 
                             <td>
-                                <a href="{{ url('test/' . $test->id . '/edit') }}" class="btn btn-primary">Update</a>
+                                <a href="{{ url('testimonials/' . $test->id . '/edit') }}" class="btn btn-primary">Update</a>
                             </td>
                             <td>
                                 <form action="{{ route('testimonials.destroy', $test->id) }}" method="post">
