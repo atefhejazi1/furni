@@ -83,11 +83,12 @@ class TestimonialsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(testimonials $testimonials)
+    public function destroy($id)
     {
-        $testimonials->delete($testimonials);
+        $testimonials = testimonials::find($id);
 
+        $testimonials->delete();
 
-        return redirect('testimonials');
+        return redirect('/testimonials');
     }
 }

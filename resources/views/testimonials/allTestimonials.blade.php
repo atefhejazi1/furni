@@ -29,9 +29,9 @@
                                 <a href="{{ url('test/' . $test->id . '/edit') }}" class="btn btn-primary">Update</a>
                             </td>
                             <td>
-                                <form action="{{ url('testimonials', $test->id) }}" method="post">
+                                <form action="{{ route('testimonials.destroy', $test->id) }}" method="post">
+                                    @method('DELETE')
                                     @csrf
-                                    @method('delete')
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
