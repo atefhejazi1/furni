@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -40,3 +41,5 @@ Route::resource('products', ProductController::class);
 
 
 Route::resource('testimonials', TestimonialsController::class);
+
+Route::resource('blogs', BlogController::class);
