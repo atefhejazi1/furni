@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestimonialsController;
@@ -18,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ClientController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -35,11 +34,10 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 
-Route::resource('categories', CategoryController::class);
+Route::resource('categories', CategoryController::class)->middleware('auth');
 
-Route::resource('products', ProductController::class);
+Route::resource('products', ProductController::class)->middleware('auth');
 
+Route::resource('testimonials', TestimonialsController::class)->middleware('auth');
 
-Route::resource('testimonials', TestimonialsController::class);
-
-Route::resource('blogs', BlogController::class);
+Route::resource('blogs', BlogController::class)->middleware('auth');
